@@ -6,7 +6,7 @@ interface ResultsCountProps {
   searchQuery?: string;
   genre?: string;
 }
-// My component 
+// My component
 export default function ResultsCount({
   total,
   searchQuery,
