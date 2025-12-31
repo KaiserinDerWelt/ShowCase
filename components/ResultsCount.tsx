@@ -7,3 +7,12 @@ interface ResultsCountProps {
   genre?: string;
 }
 
+export default function ResultsCount({ total, searchQuery, genre }: ResultsCountProps) {
+    const hasFilters = searchQuery || genre;
+  
+    return (
+      <></>
+      
+    );
+  }
+  
