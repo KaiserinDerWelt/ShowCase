@@ -1,0 +1,1 @@
+// This component was created by search for the movies.

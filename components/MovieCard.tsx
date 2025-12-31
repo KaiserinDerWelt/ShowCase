@@ -1,0 +1,1 @@
+//Movie Card gonna display the movies detail

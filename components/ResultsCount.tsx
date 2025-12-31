@@ -1,0 +1,1 @@
+//This component gonna handle the results count, remember in the API I've set a limit of 25 results per page.

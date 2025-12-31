@@ -1,0 +1,1 @@
+// Pagination display in the bottom

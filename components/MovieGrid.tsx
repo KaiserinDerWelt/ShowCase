@@ -1,0 +1,1 @@
+//Container to manage the movie cards.
