@@ -15,7 +15,7 @@ export default function Pagination({
   if (!pagination || pagination.totalPages <= 1) {
     return null;
   }
-// Constants declaration for page before, after etc
+  // Constants declaration for page before, after etc
   const { page, totalPages, total } = pagination;
   const canGoPrevious = page > 1;
   const canGoNext = page < totalPages;
