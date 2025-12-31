@@ -2,7 +2,7 @@
 "use client";
 
 import type { Movie } from "@/types/movie";
-//import MovieCard from './MovieCard';
+import MovieCard from './MovieCard';
 
 interface MovieGridProps {
   movies: Movie[];
