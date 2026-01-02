@@ -62,7 +62,7 @@ export default function Home() {
               <div className="flex-1 w-full">
                 <SearchBar
                   onSearch={handleSearchChange}
-                  placeholder="Search..."
+                  placeholder=" Search..."
                   initialValue={searchQuery}
                 />
                 <br></br>

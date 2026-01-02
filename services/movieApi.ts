@@ -1,6 +1,4 @@
 // Movie API Service
-'use client';
-
 import type {
   Movie,
   MoviesResponse,
@@ -220,13 +218,23 @@ export async function healthCheck(): Promise<{ status: string }> {
 export function extractGenres(movies: Movie[]): string[] {
   const genreSet = new Set<string>();
   
-  // Note: The API returns genre_ids as numbers
-  // You might need to map these to genre names
-  // For now, we'll convert them to strings
   movies.forEach(movie => {
-    movie.genre_ids.forEach(genreId => {
-      genreSet.add(genreId.toString());
-    });
+    // Handle genres array (if present)
+    if (movie.genres && Array.isArray(movie.genres)) {
+      movie.genres.forEach(genre => {
+        genreSet.add(genre);
+      });
+    }
+    
+    // Handle genre_ids array (legacy format)
+    if (movie.genre_ids && Array.isArray(movie.genre_ids)) {
+      movie.genre_ids.forEach(genreId => {
+        const genreName = getGenreName(genreId);
+        if (genreName !== 'Unknown') {
+          genreSet.add(genreName);
+        }
+      });
+    }
   });
 
   return Array.from(genreSet).sort();
