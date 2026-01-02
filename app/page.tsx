@@ -62,14 +62,16 @@ export default function Home() {
               <div className="flex-1 w-full">
                 <SearchBar
                   onSearch={handleSearchChange}
-                  placeholder=" "
+                  placeholder="Search..."
                   initialValue={searchQuery}
                 />
+                <br></br>
               </div>
               <GenreFilter
                 selectedGenre={selectedGenre}
                 onGenreChange={handleGenreChange}
               />
+              <br></br>
             </div>
           </div>
         </div>
