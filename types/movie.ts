@@ -1,19 +1,24 @@
-//TypeScript types for development.
+// Movie API Types
 
 export interface Movie {
   id: string;
   title: string;
-  overview: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  release_date: string;
-  runtime: number | null;
-  vote_average: number;
-  vote_count: number;
-  popularity: number;
-  genre_ids: number[];
-  original_language: string;
-  adult: boolean;
+  overview?: string;
+  posterUrl?: string;
+  rating?: string;
+  releaseDate?: string;
+  runtime?: number;
+  genres?: string[];
+  // Legacy fields for backward compatibility
+  poster_path?: string | null;
+  backdrop_path?: string | null;
+  release_date?: string;
+  vote_average?: number;
+  vote_count?: number;
+  popularity?: number;
+  genre_ids?: number[];
+  original_language?: string;
+  adult?: boolean;
 }
 
 export interface Genre {
@@ -37,7 +42,9 @@ export interface PaginationInfo {
 
 export interface MoviesResponse {
   data: Movie[];
-  pagination: PaginationInfo;
+  totalPages: number;
+  // Computed pagination info
+  pagination?: PaginationInfo;
 }
 
 export interface GenresMoviesResponse {
