@@ -1,4 +1,6 @@
 //import styles from "./page.module.css"; write styles ASAP
+"use client";
+
 import { useState } from "react";
 import { useMovies, useDebounce } from "@/hooks/theMovies";
 import SearchBar from "@/components/SearchBar";
