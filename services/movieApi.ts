@@ -73,7 +73,7 @@ async function fetchWithAuth(endpoint: string): Promise<Response> {
  */
 export async function getMovies(
   page: number = 1,
-  limit: number = 25,
+  limit: number = 300,
   search?: string,
   genre?: string
 ): Promise<MoviesResponse> {

@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { getMovies, getMovieById } from "@/services/moviesAPI";
+import { getMovies, getMovieById } from "@/services/movieApi";
 import type { Movie, MoviesResponse, ApiError } from "@/types/movie";
 
 interface UseMoviesOptions {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useMovies, useDebounce } from "@/hooks/theMovies";
+import { useMovies, useDebounce } from "@/hooks/useMovies";
 import SearchBar from "@/components/SearchBar";
 import GenreFilter from "@/components/GenreFilter";
 import MovieGrid from "@/components/MovieGrid";
