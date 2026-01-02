@@ -19,7 +19,7 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
     ? new Date(movie.release_date).getFullYear()
     : "N/A";
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
-  const genres = movie.genre_ids.slice(0, 2).map((id) => getGenreName(id));
+  const genres = movie.genre_ids?.slice(0, 2).map(id => getGenreName(id)) || [];
 
   return (
     <div
