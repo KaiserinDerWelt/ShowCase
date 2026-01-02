@@ -1,4 +1,3 @@
-//import styles from "./page.module.css"; write styles ASAP
 "use client";
 
 import { useState } from "react";
