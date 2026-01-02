@@ -130,7 +130,7 @@ export default function Home() {
       <footer className="border-t border-zinc-900 py-8 mt-20">
         <div className="container mx-auto px-4 text-center text-zinc-500 text-sm">
           <p className="mt-2">
-            Built with Next.js, TypeScript, and Tailwind CSS
+            Built with love by KaiserinDerWelt
           </p>
         </div>
       </footer>
