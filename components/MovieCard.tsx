@@ -1,6 +1,7 @@
 //Movie Card gonna display the movies detail
 'use client';
 import Image from 'next/image';
+import { useState } from 'react';
 import type { Movie } from '@/types/movie';
 import { getGenreName } from '@/services/movieApi';
 
@@ -10,9 +11,11 @@ interface MovieCardProps {
 }
 
 export default function MovieCard({ movie, onClick }: MovieCardProps) {
-  // Handle both posterUrl (actual API) and poster_path (TMDB format)
+  const [imageError, setImageError] = useState(false);
+  
   const imageUrl = movie.posterUrl || 
     (movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null);
+
 
   const year = movie.releaseDate 
     ? new Date(movie.releaseDate).getFullYear() 
@@ -23,6 +26,15 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
   const genres = movie.genres || 
     (movie.genre_ids?.slice(0, 2).map(id => getGenreName(id))) || [];
 
+    // Determine if we should show the image or fallback
+  const shouldShowImage = imageUrl && !imageError;
+
+  // Handle image errors
+  const handleImageError = () => {
+    console.log(`Image failed to load for: ${movie.title} - URL: ${imageUrl}`);
+    setImageError(true);
+  };
+
   return (
     <div
       onClick={onClick}
@@ -30,15 +42,31 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
     >
       {/* Poster Image */}
       <div className="relative aspect-[2/3] overflow-hidden bg-zinc-800">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={movie.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-            unoptimized
-          />
+        {shouldShowImage ? (
+          <>
+            <Image
+              src={imageUrl}
+              alt={movie.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+              unoptimized
+              onError={handleImageError}
+              onLoadingComplete={(result) => { //Update to onLoad in next iteration
+                // Check if image actually loaded properly
+                if (result.naturalWidth === 0) {
+                  handleImageError();
+                }
+              }}
+            />
+            {/* Fallback overlay in case image is broken but onError doesn't fire */}
+            <img
+              src={imageUrl}
+              alt=""
+              style={{ display: 'none' }}
+              onError={handleImageError}
+            />
+          </>
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900">
             <div className="text-6xl mb-2">🎬</div>
