@@ -20,11 +20,11 @@ export default function GenreFilter({
   const genres = getAllGenres();
 
   return (
-    <div className="relative">
+    <div className="relative genre-position">
       <label htmlFor="genre-select" className="sr-only">
         Filter by genre:
       </label>
-{/*Genre selector dafault all genres*/}
+      {/*Genre selector dafault all genres*/}
       <select
         id="genre-select"
         value={selectedGenre || ""}
@@ -55,11 +55,7 @@ export default function GenreFilter({
         </svg>
       </div>
 
-      {selectedGenre && (
-        <div className="absolute -top-2 -right-2 bg-amber-500 text-black text-xs font-bold px-2 py-1 rounded-full">
-          ✓
-        </div>
-      )}
+      
     </div>
   );
 }
