@@ -1,7 +1,7 @@
 // The filter to show genre provided by the API Service
 "use client";
 
-import { getAllGenres } from "@/services/moviesAPI";
+import { getAllGenres } from "@/services/movieApi";
 
 interface GenreFilterProps {
   selectedGenre?: string;

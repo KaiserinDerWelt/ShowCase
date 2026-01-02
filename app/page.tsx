@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useMovies, useDebounce } from "@/hooks/theMovies";
+import { useMovies, useDebounce } from "@/hooks/useMovies";
 import SearchBar from "@/components/SearchBar";
 import GenreFilter from "@/components/GenreFilter";
 import MovieGrid from "@/components/MovieGrid";
@@ -79,6 +79,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 container-main">
+        
         {/* Results Count */}
         {pagination && !isLoading && (
           <div className="mb-8">
