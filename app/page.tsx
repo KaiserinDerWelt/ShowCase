@@ -50,10 +50,10 @@ export default function Home() {
             {/* Logo/Title */}
             <div className="text-center">
               <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-clip-text text-transparent">
-                CineSearch
+                Showcase Home Movies
               </h1>
               <p className="text-zinc-500 text-sm mt-2">
-                Discover your next favorite movie
+                Movies and chill
               </p>
             </div>
 
@@ -62,7 +62,7 @@ export default function Home() {
               <div className="flex-1 w-full">
                 <SearchBar
                   onSearch={handleSearchChange}
-                  placeholder="Search for movies..."
+                  placeholder=" "
                   initialValue={searchQuery}
                 />
               </div>
@@ -127,7 +127,6 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-zinc-900 py-8 mt-20">
         <div className="container mx-auto px-4 text-center text-zinc-500 text-sm">
-          <p>Movie data provided by This Dot Movies API</p>
           <p className="mt-2">
             Built with Next.js, TypeScript, and Tailwind CSS
           </p>
