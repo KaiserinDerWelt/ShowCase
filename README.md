@@ -30,7 +30,7 @@ npm run dev
 3. If the app is forked for a continuous development don't forget to tag me on X @KaiserinDrWelt 😉.
 
 ## Live Project
-The live application is available here [http://](http://) and proudly hosted by VERCEL.
+The live application is available here [https://show-case-lac.vercel.app/](https://show-case-lac.vercel.app/) and proudly hosted by VERCEL.
 
 ## About my experience working on this project
 
