@@ -27,8 +27,7 @@ export default function MovieGrid({
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <div className="text-6xl mb-4">🎬</div>
-        <h3 className="text-2xl font-bold text-white mb-2">??</h3>
-        <p className="text-zinc-400 max-w-md">??</p>
+        <h3 className="text-2xl font-bold text-white mb-2">No results for this category</h3>
       </div>
     );
   }
