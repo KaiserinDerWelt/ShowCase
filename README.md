@@ -31,3 +31,35 @@ npm run dev
 
 ## Live Project
 The live application is available here [http://](http://) and proudly hosted by VERCEL.
+
+## About my experience working on this project
+
+
+**My highlight: Improving app performance.**
+
+The biggest challenge I faced was figuring out how to show detailed movie information without killing the app's performance.
+
+When I first explored the API, I noticed the `/movies` endpoint only returns basic data—just the title, poster, and rating. To get the good stuff like the overview, runtime, and genres, I'd need to call `/movies/{id}` for each individual movie. That meant if I wanted to show all the details for 20 movies on a page, I'd be making 20+ API requests every time the page loads. That's... not great for performance.
+So I came up with a lazy-loading approach that loads details on hover.
+
+## What I'm Most Proud Of
+
+I'm proud of transforming my hand-drawn UI design into a working application that fulfills all the requirements.
+
+One detail I enjoyed implementing was formatting the movie runtime for better readability. The API returns runtime in minutes (e.g., "136"), but I converted it to a user-friendly format like "2h 16m". This required refactoring my API service and updating TypeScript types, but it was worth it to see the information displayed cleanly and meaningfully for users.
+
+## What I'd Do Next
+
+If I had more time, I'd add a movie detail page. Right now, when you click on a movie, nothing happens. I'd make it so clicking takes you to a dedicated page for that movie with all the info.
+
+**What would be on that page:**
+
+- The full movie description and plot.
+- All the details: how long it is, when it came out, the cast, genres, etc.
+- Nice big poster and backdrop images.
+- An embedded trailer so you can watch it right there.
+- Action buttons depending on what the app is for like "Watch Now" if it's a streaming app, or "Download" if that makes sense.
+
+Basically, it would complete the experience. Right now you can search and browse, but this would let you actually learn about the movie and do something with it.
+
+_Thank you so much, KDW!!_
