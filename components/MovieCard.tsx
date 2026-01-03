@@ -169,7 +169,7 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
               <span className="text-zinc-600">•</span>
             )}
             {genres.length > 0 && (
-              <span className="line-clamp-1">{genres.join(", ")}</span>
+              <span className="line-clamp-1 text-white">{genres.join(", ")}</span>
             )}
           </div>
         )}
@@ -187,7 +187,7 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
           const parsed = parseDuration(displayMovie.duration);
           if (parsed) {
             return (
-              <div className="text-xs text-zinc-600">
+              <div className="text-xs text-white-600">
                 {parsed.hours > 0 && `${parsed.hours}h `}{parsed.minutes}m
               </div>
             );
@@ -195,7 +195,7 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
           // Fallback to legacy runtime (in minutes)
           if (displayMovie.runtime) {
             return (
-              <div className="text-xs text-zinc-600">
+              <div className="text-xs text-white-600">
                 {Math.floor(displayMovie.runtime / 60)}h {displayMovie.runtime % 60}m
               </div>
             );
@@ -205,14 +205,14 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
 
         {/* Votes Count */}
         {displayMovie.vote_count && displayMovie.vote_count > 0 && (
-          <div className="text-xs text-zinc-600 pt-1">
+          <div className="text-xs text-white-600 pt-1">
             {displayMovie.vote_count.toLocaleString()} votes
           </div>
         )}
       </div>
 
       {/* Hover Effect Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+      
     </div>
   );
 }
