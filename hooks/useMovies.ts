@@ -1,10 +1,10 @@
 //This is the file for my react hooks
 // Custom React Hook for Movies API
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { getMovies, getMovieById } from '@/services/moviesAPI';
-import type { Movie, MoviesResponse, ApiError } from '@/types/movie';
+import { useState, useEffect, useCallback } from "react";
+import { getMovies, getMovieById } from "@/services/movieApi";
+import type { Movie, MoviesResponse, ApiError } from "@/types/movie";
 
 interface UseMoviesOptions {
   page?: number;
@@ -16,14 +16,14 @@ interface UseMoviesOptions {
 
 interface UseMoviesReturn {
   movies: Movie[];
-  pagination: MoviesResponse['pagination'] | null;
+  pagination: MoviesResponse["pagination"] | null;
   isLoading: boolean;
   error: ApiError | null;
   refetch: () => void;
 }
 
 //Custom hook for fetching movies
- 
+
 export function useMovies({
   page = 1,
   limit = 25, //Pagination limit of 25
@@ -32,7 +32,9 @@ export function useMovies({
   enabled = true,
 }: UseMoviesOptions = {}): UseMoviesReturn {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [pagination, setPagination] = useState<MoviesResponse['pagination'] | null>(null);
+  const [pagination, setPagination] = useState<
+    MoviesResponse["pagination"] | null
+  >(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -49,7 +51,7 @@ export function useMovies({
     } catch (err) {
       const apiError = err as ApiError;
       setError(apiError);
-      console.error('Error fetching movies:', err);
+      console.error("Error fetching movies:", err);
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +95,7 @@ export function useMovie(id: string | null): UseMovieReturn {
     } catch (err) {
       const apiError = err as ApiError;
       setError(apiError);
-      console.error('Error fetching movie:', err);
+      console.error("Error fetching movie:", err);
     } finally {
       setIsLoading(false);
     }
