@@ -56,7 +56,7 @@ async function fetchWithAuth(endpoint: string): Promise<Response> {
 
   if (!response.ok) {
     const error: ApiError = {
-      message: `API Error: ${response.statusText}`,
+      message: ` ${response.statusText}`,
       status: response.status,
     };
     throw error;
