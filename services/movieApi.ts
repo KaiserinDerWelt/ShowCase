@@ -217,15 +217,20 @@ export async function healthCheck(): Promise<{ status: string }> {
  */
 export function extractGenres(movies: Movie[]): string[] {
   const genreSet = new Set<string>();
-  
+
   movies.forEach(movie => {
     // Handle genres array (if present)
     if (movie.genres && Array.isArray(movie.genres)) {
       movie.genres.forEach(genre => {
-        genreSet.add(genre);
+        // Handle both string and GenreObject formats
+        if (typeof genre === 'string') {
+          genreSet.add(genre);
+        } else if (genre && typeof genre === 'object' && 'title' in genre) {
+          genreSet.add(genre.title);
+        }
       });
     }
-    
+
     // Handle genre_ids array (legacy format)
     if (movie.genre_ids && Array.isArray(movie.genre_ids)) {
       movie.genre_ids.forEach(genreId => {

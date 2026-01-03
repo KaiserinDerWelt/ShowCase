@@ -1,5 +1,10 @@
 // Movie API Types
 
+export interface GenreObject {
+  id: string;
+  title: string;
+}
+
 export interface Movie {
   id: string;
   title: string;
@@ -8,7 +13,15 @@ export interface Movie {
   rating?: string;
   releaseDate?: string;
   runtime?: number;
-  genres?: string[];
+  genres?: string[] | GenreObject[];
+  // API-specific fields
+  duration?: string; // ISO 8601 format (e.g., "PT42M", "PT2H30M")
+  directors?: string[];
+  mainActors?: string[];
+  datePublished?: string;
+  ratingValue?: number;
+  bestRating?: number;
+  worstRating?: number;
   // Legacy fields for backward compatibility
   poster_path?: string | null;
   backdrop_path?: string | null;
