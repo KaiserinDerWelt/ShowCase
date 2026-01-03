@@ -50,7 +50,7 @@ export default function Home() {
             {/* Logo/Title */}
             <div className="text-center">
               <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-clip-text text-transparent">
-              ♛  Showcase Movies ♛ 
+                ♛ Showcase Movies ♛
               </h1>
             </div>
 
@@ -126,8 +126,11 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-zinc-900 py-8 mt-20">
         <div className="container mx-auto px-4 text-center text-zinc-500 text-sm">
-          <br/>
-          <p className="mt-2">♛ ♛ ♛ Built by Kaiserin Der Welt 2026 with Next and Tailwind CSS ♛ ♛ ♛ </p>
+          <br />
+          <p className="mt-2">
+            ♛ ♛ ♛ Built by Kaiserin Der Welt 2026 with Next and Tailwind CSS ♛ ♛
+            ♛{" "}
+          </p>
         </div>
       </footer>
     </div>

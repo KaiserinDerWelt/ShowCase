@@ -26,39 +26,39 @@ export function generatePlaceholderDataUrl(title: string): string {
         text-anchor="middle" 
         dominant-baseline="middle"
       >
-        ${title.substring(0, 20)}${title.length > 20 ? '...' : ''}
+        ${title.substring(0, 20)}${title.length > 20 ? "..." : ""}
       </text>
     </svg>
   `;
-  
-  return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+
+  return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }
 
 //Runtime in minutes
 export function formatRuntime(minutes: number | null): string {
-  if (!minutes) return 'N/A';
-  
+  if (!minutes) return "N/A";
+
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
-  
+
   if (hours === 0) return `${mins}m`;
   return `${hours}h ${mins}m`;
 }
 
 //Format date into a format YY.MM.DD
 export function formatDate(dateString: string): string {
-  if (!dateString) return 'N/A';
-  
+  if (!dateString) return "N/A";
+
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
 //Paragraph lenght truncated
 export function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength).trim() + '...';
+  return text.substring(0, maxLength).trim() + "...";
 }
