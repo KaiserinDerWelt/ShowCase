@@ -1,29 +1,28 @@
-//Movie Card gonna display the movies detail
-'use client';
-import Image from 'next/image';
-import { useState } from 'react';
-import type { Movie } from '@/types/movie';
-import { getGenreName, getMovieById } from '@/services/movieApi';
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import type { Movie } from "@/types/movie";
+import { getGenreName, getMovieById } from "@/services/movieApi";
 
 interface MovieCardProps {
   movie: Movie;
   onClick?: () => void;
 }
 
-// Refactor component to display movie information on hover... here we go
-export default function MovieCardOptimized({ movie, onClick }: MovieCardProps) {
+export default function MovieCard({ movie, onClick }: MovieCardProps) {
   const [imageError, setImageError] = useState(false);
   const [fullDetails, setFullDetails] = useState<Movie | null>(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [detailsFetched, setDetailsFetched] = useState(false);
-  
+
   // Fetch details on hover (lazy loading)
   const handleMouseEnter = async () => {
     if (detailsFetched) return; // Already fetched
-    
+
     setLoadingDetails(true);
     setDetailsFetched(true);
-    
+
     try {
       const details = await getMovieById(movie.id);
       setFullDetails(details);
@@ -37,19 +36,47 @@ export default function MovieCardOptimized({ movie, onClick }: MovieCardProps) {
   };
 
   const displayMovie = fullDetails || movie;
-  
-  const imageUrl = displayMovie.posterUrl || 
-    (displayMovie.poster_path ? `https://image.tmdb.org/t/p/w500${displayMovie.poster_path}` : null);
 
-  const year = displayMovie.releaseDate 
-    ? new Date(displayMovie.releaseDate).getFullYear() 
-    : (displayMovie.release_date ? new Date(displayMovie.release_date).getFullYear() : null);
-    
-  const rating = displayMovie.rating || 
+  const imageUrl =
+    displayMovie.posterUrl ||
+    (displayMovie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${displayMovie.poster_path}`
+      : null);
+
+  const year = displayMovie.releaseDate
+    ? new Date(displayMovie.releaseDate).getFullYear()
+    : displayMovie.release_date
+    ? new Date(displayMovie.release_date).getFullYear()
+    : null;
+
+  const rating =
+    displayMovie.rating ||
     (displayMovie.vote_average ? displayMovie.vote_average.toFixed(1) : null);
-  
-  const genres = displayMovie.genres || 
-    (displayMovie.genre_ids?.slice(0, 2).map(id => getGenreName(id))) || [];
+
+  // FIX: Handle genres properly - extract names from objects or use strings directly
+  const genres = (() => {
+    if (displayMovie.genres && Array.isArray(displayMovie.genres)) {
+      // Check if first element is an object with 'name' property
+      if (
+        displayMovie.genres.length > 0 &&
+        typeof displayMovie.genres[0] === "object" &&
+        displayMovie.genres[0] !== null
+      ) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore - Extract name from genre objects
+        return displayMovie.genres.slice(0, 2).map((g) => g.name || String(g));
+      }
+      // Already an array of strings
+      return displayMovie.genres.slice(0, 2);
+    }
+
+    // Fallback to genre_ids
+    if (displayMovie.genre_ids && Array.isArray(displayMovie.genre_ids)) {
+      return displayMovie.genre_ids.slice(0, 2).map((id) => getGenreName(id));
+    }
+
+    return [];
+  })();
 
   const shouldShowImage = imageUrl && !imageError;
 
@@ -79,7 +106,7 @@ export default function MovieCardOptimized({ movie, onClick }: MovieCardProps) {
             <img
               src={imageUrl}
               alt=""
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               onError={handleImageError}
             />
           </>
@@ -88,11 +115,11 @@ export default function MovieCardOptimized({ movie, onClick }: MovieCardProps) {
             <div className="text-6xl mb-2">🎬</div>
             <div className="text-zinc-600 text-sm text-center px-4">
               {displayMovie.title.substring(0, 30)}
-              {displayMovie.title.length > 30 ? '...' : ''}
+              {displayMovie.title.length > 30 ? "..." : ""}
             </div>
           </div>
         )}
-        
+
         {/* Rating Badge */}
         {rating && (
           <div className="absolute top-3 right-3 bg-amber-500 text-black font-bold px-2.5 py-1 rounded-full text-sm shadow-lg z-10">
@@ -121,10 +148,14 @@ export default function MovieCardOptimized({ movie, onClick }: MovieCardProps) {
         {/* Year & Genres */}
         {(year || genres.length > 0) && (
           <div className="flex items-center gap-2 text-sm text-zinc-400">
-            {year && <span className="text-amber-500 font-semibold">{year}</span>}
-            {year && genres.length > 0 && <span className="text-zinc-600">•</span>}
+            {year && (
+              <span className="text-amber-500 font-semibold">{year}</span>
+            )}
+            {year && genres.length > 0 && (
+              <span className="text-zinc-600">•</span>
+            )}
             {genres.length > 0 && (
-              <span className="line-clamp-1">{genres.join(', ')}</span>
+              <span className="line-clamp-1">{genres.join(", ")}</span>
             )}
           </div>
         )}
@@ -139,7 +170,8 @@ export default function MovieCardOptimized({ movie, onClick }: MovieCardProps) {
         {/* Runtime */}
         {displayMovie.runtime && (
           <div className="text-xs text-zinc-600">
-            {Math.floor(displayMovie.runtime / 60)}h {displayMovie.runtime % 60}m
+            {Math.floor(displayMovie.runtime / 60)}h {displayMovie.runtime % 60}
+            m
           </div>
         )}
 
