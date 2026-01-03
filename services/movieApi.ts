@@ -7,9 +7,9 @@ import type {
   GenreStats,
   AuthTokenResponse,
   ApiError,
-} from '@/types/movie';
+} from "@/types/movie";
 
-const BASE_URL = 'https://0kadddxyh3.execute-api.us-east-1.amazonaws.com';
+const BASE_URL = "https://0kadddxyh3.execute-api.us-east-1.amazonaws.com";
 
 // Token management
 let authToken: string | null = null;
@@ -26,17 +26,17 @@ export async function getAuthToken(): Promise<string> {
 
   try {
     const response = await fetch(`${BASE_URL}/auth/token`);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch auth token: ${response.statusText}`);
     }
 
     const data: AuthTokenResponse = await response.json();
     authToken = data.token;
-    
+
     return authToken;
   } catch (error) {
-    console.error('Error fetching auth token:', error);
+    console.error("Error fetching auth token:", error);
     throw error;
   }
 }
@@ -46,11 +46,11 @@ export async function getAuthToken(): Promise<string> {
  */
 async function fetchWithAuth(endpoint: string): Promise<Response> {
   const token = await getAuthToken();
-  
+
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   });
 
@@ -84,22 +84,22 @@ export async function getMovies(
   });
 
   if (search) {
-    params.append('search', search);
+    params.append("search", search);
   }
 
   if (genre) {
-    params.append('genre', genre);
+    params.append("genre", genre);
   }
 
   try {
     const response = await fetchWithAuth(`/movies?${params.toString()}`);
     const rawData = await response.json();
-    
-    console.log('Raw API Response:', rawData);
-    
+
+    console.log("Raw API Response:", rawData);
+
     // Transform API response to our expected format
     const total = rawData.totalPages * limit; // Estimate total from totalPages
-    
+
     const data: MoviesResponse = {
       data: rawData.data,
       totalPages: rawData.totalPages,
@@ -108,14 +108,14 @@ export async function getMovies(
         limit: limit,
         total: total,
         totalPages: rawData.totalPages,
-      }
+      },
     };
-    
-    console.log('Transformed Response:', data);
-    
+
+    console.log("Transformed Response:", data);
+
     return data;
   } catch (error) {
-    console.error('Error fetching movies:', error);
+    console.error("Error fetching movies:", error);
     throw error;
   }
 }
@@ -154,7 +154,7 @@ export async function getMovieTitles(
     const data: MovieTitlesResponse = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching movie titles:', error);
+    console.error("Error fetching movie titles:", error);
     throw error;
   }
 }
@@ -178,7 +178,7 @@ export async function getGenresMovies(
     const data: GenresMoviesResponse = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching genres:', error);
+    console.error("Error fetching genres:", error);
     throw error;
   }
 }
@@ -207,7 +207,7 @@ export async function healthCheck(): Promise<{ status: string }> {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error checking health:', error);
+    console.error("Error checking health:", error);
     throw error;
   }
 }
@@ -218,14 +218,14 @@ export async function healthCheck(): Promise<{ status: string }> {
 export function extractGenres(movies: Movie[]): string[] {
   const genreSet = new Set<string>();
 
-  movies.forEach(movie => {
+  movies.forEach((movie) => {
     // Handle genres array (if present)
     if (movie.genres && Array.isArray(movie.genres)) {
-      movie.genres.forEach(genre => {
+      movie.genres.forEach((genre) => {
         // Handle both string and GenreObject formats
-        if (typeof genre === 'string') {
+        if (typeof genre === "string") {
           genreSet.add(genre);
-        } else if (genre && typeof genre === 'object' && 'title' in genre) {
+        } else if (genre && typeof genre === "object" && "title" in genre) {
           genreSet.add(genre.title);
         }
       });
@@ -233,9 +233,9 @@ export function extractGenres(movies: Movie[]): string[] {
 
     // Handle genre_ids array (legacy format)
     if (movie.genre_ids && Array.isArray(movie.genre_ids)) {
-      movie.genre_ids.forEach(genreId => {
+      movie.genre_ids.forEach((genreId) => {
         const genreName = getGenreName(genreId);
-        if (genreName !== 'Unknown') {
+        if (genreName !== "Unknown") {
           genreSet.add(genreName);
         }
       });
@@ -250,32 +250,32 @@ export function extractGenres(movies: Movie[]): string[] {
  * You might want to fetch this from the API or maintain it separately
  */
 export const GENRE_MAP: Record<number, string> = {
-  28: 'Action',
-  12: 'Adventure',
-  16: 'Animation',
-  35: 'Comedy',
-  80: 'Crime',
-  99: 'Documentary',
-  18: 'Drama',
-  10751: 'Family',
-  14: 'Fantasy',
-  36: 'History',
-  27: 'Horror',
-  10402: 'Music',
-  9648: 'Mystery',
-  10749: 'Romance',
-  878: 'Science Fiction',
-  10770: 'TV Movie',
-  53: 'Thriller',
-  10752: 'War',
-  37: 'Western',
+  28: "Action",
+  12: "Adventure",
+  16: "Animation",
+  35: "Comedy",
+  80: "Crime",
+  99: "Documentary",
+  18: "Drama",
+  10751: "Family",
+  14: "Fantasy",
+  36: "History",
+  27: "Horror",
+  10402: "Music",
+  9648: "Mystery",
+  10749: "Romance",
+  878: "Science Fiction",
+  10770: "TV Movie",
+  53: "Thriller",
+  10752: "War",
+  37: "Western",
 };
 
 /**
  * Get genre name from ID
  */
 export function getGenreName(genreId: number): string {
-  return GENRE_MAP[genreId] || 'Unknown';
+  return GENRE_MAP[genreId] || "Unknown";
 }
 
 /**

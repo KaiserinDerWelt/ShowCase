@@ -53,9 +53,9 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 py-8">
+    <div className="flex flex-col items-center gap-6 py-8 mb-15">
       {/* Results Info */}
-      <div className="text-zinc-400 text-sm">
+      <div className="text-zinc-400 text-sm mt-auto">
         Showing page <span className="text-amber-500 font-bold">{page}</span> of{" "}
         <span className="text-white font-bold">{totalPages}</span>
         <span className="text-zinc-600 mx-2">•</span>
