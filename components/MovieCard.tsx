@@ -10,6 +10,17 @@ interface MovieCardProps {
   onClick?: () => void;
 }
 
+// Parse ISO 8601 duration (e.g., "PT42M", "PT2H30M") to { hours, minutes }
+function parseDuration(duration: string | undefined): { hours: number; minutes: number } | null {
+  if (!duration) return null;
+  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
+  if (!match) return null;
+  const hours = parseInt(match[1] || "0", 10);
+  const minutes = parseInt(match[2] || "0", 10);
+  if (hours === 0 && minutes === 0) return null;
+  return { hours, minutes };
+}
+
 export default function MovieCard({ movie, onClick }: MovieCardProps) {
   const [imageError, setImageError] = useState(false);
   const [fullDetails, setFullDetails] = useState<Movie | null>(null);
@@ -45,26 +56,29 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
 
   const year = displayMovie.releaseDate
     ? new Date(displayMovie.releaseDate).getFullYear()
+    : displayMovie.datePublished
+    ? new Date(displayMovie.datePublished).getFullYear()
     : displayMovie.release_date
     ? new Date(displayMovie.release_date).getFullYear()
     : null;
 
   const rating =
     displayMovie.rating ||
+    (displayMovie.ratingValue ? displayMovie.ratingValue.toFixed(1) : null) ||
     (displayMovie.vote_average ? displayMovie.vote_average.toFixed(1) : null);
 
   // FIX: Handle genres properly - extract names from objects or use strings directly
   const genres = (() => {
     if (displayMovie.genres && Array.isArray(displayMovie.genres)) {
-      // Check if first element is an object with 'name' property
+      // Check if first element is an object with 'title' or 'name' property
       if (
         displayMovie.genres.length > 0 &&
         typeof displayMovie.genres[0] === "object" &&
         displayMovie.genres[0] !== null
       ) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - Extract name from genre objects
-        return displayMovie.genres.slice(0, 2).map((g) => g.name || String(g));
+        // @ts-ignore - Extract title/name from genre objects (API returns 'title')
+        return displayMovie.genres.slice(0, 2).map((g) => g.title || g.name || String(g));
       }
       // Already an array of strings
       return displayMovie.genres.slice(0, 2);
@@ -167,13 +181,27 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
           </p>
         )}
 
-        {/* Runtime */}
-        {displayMovie.runtime && (
-          <div className="text-xs text-zinc-600">
-            {Math.floor(displayMovie.runtime / 60)}h {displayMovie.runtime % 60}
-            m
-          </div>
-        )}
+        {/* Runtime - handle both ISO duration and legacy runtime */}
+        {(() => {
+          // Try ISO 8601 duration first (e.g., "PT42M", "PT2H30M")
+          const parsed = parseDuration(displayMovie.duration);
+          if (parsed) {
+            return (
+              <div className="text-xs text-zinc-600">
+                {parsed.hours > 0 && `${parsed.hours}h `}{parsed.minutes}m
+              </div>
+            );
+          }
+          // Fallback to legacy runtime (in minutes)
+          if (displayMovie.runtime) {
+            return (
+              <div className="text-xs text-zinc-600">
+                {Math.floor(displayMovie.runtime / 60)}h {displayMovie.runtime % 60}m
+              </div>
+            );
+          }
+          return null;
+        })()}
 
         {/* Votes Count */}
         {displayMovie.vote_count && displayMovie.vote_count > 0 && (
