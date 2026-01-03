@@ -30,7 +30,7 @@ npm run dev
 3. If the app is forked for a continuous development don't forget to tag me on X @KaiserinDrWelt 😉.
 
 ## Live Project
-The live application is available here [http://](http://) and proudly hosted by VERCEL.
+The live application is available here [https://show-case-lac.vercel.app/](https://show-case-lac.vercel.app/) and proudly hosted by VERCEL.
 
 ## About my experience working on this project
 
@@ -62,4 +62,8 @@ If I had more time, I'd add a movie detail page. Right now, when you click on a 
 
 Basically, it would complete the experience. Right now you can search and browse, but this would let you actually learn about the movie and do something with it.
 
+**SDLC & CLI**
+_ The software development cycle was followed throughout this project. Planning, Analysis, Design and Software Architecture, Software Development, Testing, and Deployment were all part of my responsibilities as a software engineer._
+
+_The design, architecture, component creation, and initial API implementation were written by me. Claude CLI was used primarily for debugging and testing, particularly to quickly optimize API calls and improve application performance._
 _Thank you so much, KDW!!_
