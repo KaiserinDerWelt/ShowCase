@@ -29,7 +29,7 @@ export default function GenreFilter({
         id="genre-select"
         value={selectedGenre || ""}
         onChange={(e) => onGenreChange(e.target.value || undefined)}
-        className="appearance-none bg-zinc-900 text-white border-2 border-zinc-800 rounded-full pl-6 pr-12 py-3 cursor-pointer hover:border-amber-500 focus:border-amber-500 focus:outline-none transition-all duration-300 text-base font-medium shadow-lg hover:shadow-amber-500/10 focus:shadow-amber-500/20"
+        className="appearance-none bg-zinc-900 text-white border-2 border-zinc-800 rounded-full pl-6 pr-12 py-3 cursor-pointer hover:border-amber-500 focus:border-amber-500 focus:outline-none transition-all duration-300 text-base font-medium shadow-lg hover:shadow-amber-500/10 focus:shadow-amber-500/20 style-genres-bar"
       >
         <option value="">All Genres</option>
         {genres.map((genre) => (

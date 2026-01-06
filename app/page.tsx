@@ -49,9 +49,9 @@ export default function Home() {
           <div className="flex flex-col items-center gap-6">
             {/* Logo/Title */}
             <div className="text-center">
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-clip-text text-transparent">
-                ♛ Showcase Movies ♛
-              </h1>
+              <h2 className="text-5xl font-bold bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-clip-text text-transparent">
+                ♛Showcase Movies♛
+              </h2>
             </div>
 
             {/* Search & Filter Controls */}

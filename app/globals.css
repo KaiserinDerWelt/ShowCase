@@ -47,3 +47,11 @@ html {
   outline: 2px solid #f59e0b;
   outline-offset: 2px;
 }
+
+.style-bar{
+  padding-left: 15px;
+}
+
+.style-genres-bar{
+  padding-left: 15px !important;
+}
