@@ -39,7 +39,7 @@ export default function SearchBar({
         value={query}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full bg-zinc-900 text-white placeholder-zinc-500 pl-12 pr-12 py-4 rounded-full border-2 border-zinc-800 focus:border-amber-500 focus:outline-none transition-all duration-300 text-lg shadow-lg hover:shadow-amber-500/10 focus:shadow-amber-500/20"
+        className="w-full bg-zinc-900 text-white placeholder-zinc-500 pl-12 pr-12 py-4 rounded-full border-2 border-zinc-800 focus:border-amber-500 focus:outline-none transition-all duration-300 text-lg shadow-lg hover:shadow-amber-500/10 focus:shadow-amber-500/20 style-bar"
       />
 
       {/* Clear Button */}
